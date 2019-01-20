@@ -1,0 +1,38 @@
+{
+    "name": "digitalcloud/nova-resource-notes",
+    "description": "A Laravel Nova Resource Note.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Motaz Marouf",
+            "email": "m.marouf@dce.sa",
+            "homepage": "https://dce.sa",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "digitalcloud/laravel-model-notes": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "DigitalCloud\\NovaResourceNotes\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DigitalCloud\\NovaResourceNotes\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
