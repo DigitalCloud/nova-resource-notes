@@ -11,7 +11,7 @@ class Note extends Resource {
 
     public static $model = 'DigitalCloud\ModelNotes\Note';
 
-    public static $displayInNavigation = true;
+    public static $displayInNavigation = false;
 
     public function fields(Request $request)
     {

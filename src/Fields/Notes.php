@@ -5,6 +5,7 @@ namespace DigitalCloud\NovaResourceNotes\Fields;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\ResourceRelationshipGuesser;
+use DigitalCloud\NovaResourceNotes\Resources\Note;
 
 class Notes extends Field {
 
@@ -18,11 +19,11 @@ class Notes extends Field {
     public $resourceClass;
     public $hasManyRelationship;
 
-    public function __construct($name, $attribute = null, $resource = null)
+    public function __construct($name, $attribute = null)
     {
         parent::__construct($name, $attribute);
 
-        $resource = $resource ?? ResourceRelationshipGuesser::guessResource($name);
+        $resource = Note::class;
 
         $this->resourceClass = $resource;
         $this->resourceName = $resource::uriKey();

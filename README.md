@@ -9,11 +9,22 @@ You can install the package via composer:
 composer require digitalcloud/nova-resource-notes
 ```
 
-Note that, this package depend on  `digitalcloud/laravel-model-notes` (https://github.com/DigitalCloud/laravel-model-notes), so you need to configure it before start using this package
+Note that, this package depend on  `digitalcloud/laravel-model-notes` (https://github.com/DigitalCloud/laravel-model-notes), so you need to configure it before start using this package.
+
+You must add `HasNotes` trait to the resource model.
+
+```php
+use DigitalCloud\ModelNotes\HasNotes;
+
+class YourEloquentModel extends Model
+{
+    use HasNotes;
+}
+```
 
 ## Usage
 
-In your nova resource add the the `Notes` field:
+In your nova resource add the `Notes` field:
 
 ```php
 <?php
@@ -21,19 +32,20 @@ In your nova resource add the the `Notes` field:
 namespace App\Nova;
 
 use DigitalCloud\NovaResourceNotes\Fields\Notes;
-use DigitalCloud\NovaResourceNotes\Resources\Note;
 use Illuminate\Http\Request;
 
 class YourResource extends Resource {
     
     // ...
     
+    public static $model = 'YourEloquentModel'; // model must use `HasNotes` trait`
+    
     public function fields(Request $request)
     {
         return [
             // ...
             // This will appear in the resource detail view.
-            Notes::make('Notes','notes', Note::class),
+            Notes::make('Notes','notes'),
             // ...
         ];
     }
