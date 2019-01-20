@@ -10,6 +10,7 @@ class Notes extends Field {
 
     public $onlyOnDetail = true;
     public $showOnUpdate = false;
+    public $showOnCreation = false;
 
     public $component = 'notes-field';
 

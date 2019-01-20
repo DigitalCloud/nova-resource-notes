@@ -43,4 +43,4 @@ class YourResource extends Resource {
 ```
 
 ## Images
-![notes](https://user-images.githubusercontent.com/41853913/51436734-674b2f80-1c9b-11e9-8832-750efb6229de.PNG)
+![notes](https://user-images.githubusercontent.com/41853913/51436776-328ba800-1c9c-11e9-975a-ac6f668d9664.PNG)

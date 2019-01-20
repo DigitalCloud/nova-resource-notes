@@ -12224,6 +12224,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -13110,6 +13111,7 @@ var render = function() {
                   ],
                   staticClass:
                     "w-full form-control form-input form-input-bordered py-3 h-auto",
+                  attrs: { placeholder: "Type a note, and press enter." },
                   domProps: { value: _vm.note },
                   on: {
                     keydown: function($event) {
