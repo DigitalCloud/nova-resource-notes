@@ -32,6 +32,7 @@ class YourResource extends Resource {
     {
         return [
             // ...
+            // This will appear in the resource detail view.
             Notes::make('Notes','notes', Note::class),
             // ...
         ];
@@ -41,6 +42,8 @@ class YourResource extends Resource {
 
 }
 ```
+
+Then, in resource detail page, you can add and delete notes for your resuorce as in the next image.
 
 ## Images
 ![notes](https://user-images.githubusercontent.com/41853913/51436776-328ba800-1c9c-11e9-975a-ac6f668d9664.PNG)
