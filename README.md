@@ -58,4 +58,4 @@ class YourResource extends Resource {
 Then, in resource detail page, you can add and delete notes for your resuorce as in the next image.
 
 ## Images
-![notes](https://user-images.githubusercontent.com/41853913/51436776-328ba800-1c9c-11e9-975a-ac6f668d9664.PNG)
+![notes new](https://user-images.githubusercontent.com/41853913/51460562-7813a800-1d64-11e9-8c46-3ac5776379e0.PNG)

@@ -10778,6 +10778,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10806,8 +10817,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
     methods: {
+        getField: function getField(name) {
+            var fields = this.resource.fields.filter(function (field) {
+                return field.attribute === name;
+            });
+            return fields ? fields[0] : null;
+        },
         updateNoteValue: function updateNoteValue(g) {
-            console.log(g);
+            console.log('updateNoteValue');
         },
         updateNote: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
@@ -10912,7 +10929,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     watch: {
         note: function note(val) {
-            console.log(val);
+            console.log('watch:note');
         }
     }
 });
@@ -11701,22 +11718,50 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("tr", { attrs: { dusk: _vm.resource["id"].value + "-row" } }, [
     _vm.note
-      ? _c(
-          "td",
-          [
-            _c(_vm.currentMode, {
-              tag: "component",
-              class: "text-" + _vm.note.textAlign,
-              attrs: {
-                "resource-name": _vm.resourceName,
-                "via-resource": _vm.viaResource,
-                "via-resource-id": _vm.viaResourceId,
-                field: _vm.note
-              }
-            })
-          ],
-          1
-        )
+      ? _c("td", {}, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "bg-teal-lightest border-teal rounded-full text-teal-darkest px-4 py-3 shadow-md my-2 bg-40",
+              attrs: { role: "alert" }
+            },
+            [
+              _c("div", { staticClass: "flex" }, [
+                _c("p", {
+                  staticClass: "font-bold mr-1",
+                  domProps: {
+                    innerHTML: _vm._s(
+                      _vm.getField("creator")
+                        ? _vm.getField("creator").value.name
+                        : ""
+                    )
+                  }
+                }),
+                _vm._v(" "),
+                _c("p", {
+                  staticClass: "text-sm",
+                  domProps: {
+                    innerHTML: _vm._s(
+                      _vm.getField("note") ? _vm.getField("note").value : ""
+                    )
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("p", {
+            staticClass: "text-sm text-right text-info",
+            domProps: {
+              innerHTML: _vm._s(
+                _vm.getField("created_at")
+                  ? _vm.getField("created_at").value
+                  : ""
+              )
+            }
+          })
+        ])
       : _vm._e(),
     _vm._v(" "),
     _c(

@@ -5,6 +5,7 @@ namespace DigitalCloud\NovaResourceNotes\Resources;
 
 use App\Nova\Resource;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Text;
 
 class Note extends Resource {
@@ -16,7 +17,9 @@ class Note extends Resource {
     public function fields(Request $request)
     {
         return [
-            Text::make('note')
+            Text::make('note'),
+            Text::make('creator'),
+            DateTime::make('created_at'),
         ];
     }
 

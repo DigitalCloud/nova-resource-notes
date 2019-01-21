@@ -14,15 +14,26 @@
             <!--/>-->
         <!--</td>-->
 
-        <td v-if="note">
-            <component
-            :is="currentMode"
-            :class="`text-${note.textAlign}`"
-            :resource-name="resourceName"
-            :via-resource="viaResource"
-            :via-resource-id="viaResourceId"
-            :field="note"
-            />
+        <td v-if="note" class="">
+            <div class="bg-teal-lightest border-teal rounded-full text-teal-darkest px-4 py-3 shadow-md my-2 bg-40" role="alert">
+                <div class="flex">
+                    <!--<svg class="h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg>-->
+
+                        <p class="font-bold mr-1" v-html="getField('creator')? getField('creator').value.name : ''"></p>
+                        <p class="text-sm" v-html="getField('note')? getField('note').value : ''"></p>
+
+                </div>
+            </div>
+            <!--<div v-html="getField('creator')? getField('creator').value.name : ''"></div>-->
+            <!--<component-->
+            <!--:is="currentMode"-->
+            <!--:class="`text-${note.textAlign}`"-->
+            <!--:resource-name="resourceName"-->
+            <!--:via-resource="viaResource"-->
+            <!--:via-resource-id="viaResourceId"-->
+            <!--:field="note"-->
+            <!--/>-->
+            <p class="text-sm text-right text-info" v-html="getField('created_at')? getField('created_at').value : ''"></p>
         </td>
         <!--<td v-if="note && updateMode">-->
             <!--<component-->
@@ -121,8 +132,13 @@
 
         methods: {
 
+            getField(name) {
+                let fields = this.resource.fields.filter(field => field.attribute === name)
+                return fields? fields[0] : null
+            },
+
             updateNoteValue(g) {
-                console.log(g);
+                console.log('updateNoteValue');
             },
 
             async updateNote() {
@@ -204,7 +220,7 @@
         },
         watch: {
             note: function(val) {
-                console.log(val)
+                console.log('watch:note')
             }
         }
     }
