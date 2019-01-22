@@ -44,7 +44,7 @@
                     ref="resourceTable"
                 />
 
-                <div>
+                <div class="m-4">
                     <textarea
                         placeholder="Type a note, and press enter."
                         class="w-full form-control form-input form-input-bordered py-3 h-auto"
