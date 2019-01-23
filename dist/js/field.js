@@ -3234,10 +3234,7 @@ exports.default = {
                 }
 
                 _context.next = 3;
-                return this.$store.dispatch(this.resourceName + '/resetFilterState', {
-                  resourceName: this.resourceName,
-                  lens: lens
-                });
+                return this.$store.dispatch('resetFilterState', { resourceName: this.resourceName, lens: lens });
 
               case 3:
                 _context.next = 7;
@@ -3245,9 +3242,7 @@ exports.default = {
 
               case 5:
                 _context.next = 7;
-                return this.$store.dispatch(this.resourceName + '/resetFilterState', {
-                  resourceName: this.resourceName
-                });
+                return this.$store.dispatch('resetFilterState', { resourceName: this.resourceName });
 
               case 7:
 
@@ -3275,7 +3270,7 @@ exports.default = {
     filterChanged: function filterChanged() {
       var _updateQueryString2;
 
-      this.updateQueryString((_updateQueryString2 = {}, (0, _defineProperty3.default)(_updateQueryString2, this.pageParameter, 1), (0, _defineProperty3.default)(_updateQueryString2, this.filterParameter, this.$store.getters[this.resourceName + '/currentEncodedFilters']), _updateQueryString2));
+      this.updateQueryString((_updateQueryString2 = {}, (0, _defineProperty3.default)(_updateQueryString2, this.pageParameter, 1), (0, _defineProperty3.default)(_updateQueryString2, this.filterParameter, this.$store.getters.currentEncodedFilters), _updateQueryString2));
     },
 
 
@@ -3288,20 +3283,13 @@ exports.default = {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                // Clear out the filters from the store first
-                this.$store.commit(this.resourceName + '/clearFilters');
+                _context2.next = 2;
+                return this.$store.dispatch('fetchFilters', { resourceName: this.resourceName, lens: lens });
 
-                _context2.next = 3;
-                return this.$store.dispatch(this.resourceName + '/fetchFilters', {
-                  resourceName: this.resourceName,
-                  lens: lens
-                });
+              case 2:
+                this.initializeState(lens);
 
               case 3:
-                _context2.next = 5;
-                return this.initializeState(lens);
-
-              case 5:
               case 'end':
                 return _context2.stop();
             }
@@ -3332,7 +3320,7 @@ exports.default = {
                 }
 
                 _context3.next = 3;
-                return this.$store.dispatch(this.resourceName + '/initializeCurrentFilterValuesFromQueryString', this.initialEncodedFilters);
+                return this.$store.dispatch('initializeCurrentFilterValuesFromQueryString', this.initialEncodedFilters);
 
               case 3:
                 _context3.next = 7;
@@ -3340,10 +3328,7 @@ exports.default = {
 
               case 5:
                 _context3.next = 7;
-                return this.$store.dispatch(this.resourceName + '/resetFilterState', {
-                  resourceName: this.resourceName,
-                  lens: lens
-                });
+                return this.$store.dispatch('resetFilterState', { resourceName: this.resourceName, lens: lens });
 
               case 7:
               case 'end':
