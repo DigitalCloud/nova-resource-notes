@@ -44,13 +44,13 @@
                     ref="resourceTable"
                 />
 
-                <div class="m-4">
+                <div class="m-8">
                     <textarea
                         placeholder="Type a note, and press enter."
-                        class="w-full form-control form-input form-input-bordered py-3 h-auto"
-
+                        class="w-full form-control form-input form-input-bordered bg-40 border-40 py-3 h-auto"
                         v-model="note"
                         @keydown.enter.prevent="addNote"
+                        rows="4"
                     />
 
                 </div>

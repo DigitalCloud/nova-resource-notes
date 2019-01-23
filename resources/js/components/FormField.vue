@@ -1,6 +1,6 @@
 <template>
     <textarea
-        class="w-full form-control form-input form-input-bordered py-3 h-auto"
+        class="w-full form-control form-input form-input-bordered bg-40 border-40 py-3 h-auto"
         :id="field.attribute"
         :dusk="field.attribute"
         v-model="value"
