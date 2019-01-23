@@ -19,7 +19,7 @@ class Note extends Resource {
         return [
             Text::make('note'),
             Text::make('creator'),
-            DateTime::make('created_at'),
+            Text::make('time_ago'),
         ];
     }
 
