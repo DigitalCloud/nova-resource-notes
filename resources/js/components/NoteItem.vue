@@ -1,81 +1,37 @@
 <template>
-    <tr :dusk="resource['id'].value + '-row'">
+    <tr>
+        <td>
+            <div class="flex relative pt-4">
+                <button
+                        class="absolute pin-r pin-t mt-4 bg-40 p-2 rounded"
+                        :data-testid="`${testId}-delete-button`"
+                        :dusk="`${resource['id'].value}-delete-button`"
 
-
-        <!-- Fields -->
-        <!--<td v-for="field in resource.fields">-->
-            <!--<component-->
-                <!--:is="'index-' + field.component"-->
-                <!--:class="`text-${field.textAlign}`"-->
-                <!--:resource-name="resourceName"-->
-                <!--:via-resource="viaResource"-->
-                <!--:via-resource-id="viaResourceId"-->
-                <!--:field="field"-->
-            <!--/>-->
-        <!--</td>-->
-
-        <td v-if="note" class="">
-            <div class="bg-teal-lightest border-teal text-teal-darkest px-4 py-3 shadow-md mb-2 mt-4 bg-40" role="alert">
-                <div class="flex items-center">
-                    <img :src="gravatar" class="rounded-full w-8 h-8 mr-3">
-                    <p class="font-bold mr-3" v-html="getField('creator')? getField('creator').value.name : ''"></p>
-                    <p class="text-sm" v-html="getField('note')? getField('note').value : ''"></p>
+                        v-if="resource.authorizedToDelete && (! resource.softDeleted || viaManyToMany)"
+                        @click.prevent="openDeleteModal"
+                        :title="__(viaManyToMany ? 'Detach' : 'Delete')"
+                >
+                    <!--<icon />-->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-labelledby="delete" role="presentation" class="fill-current text-80"><path fill-rule="nonzero" d="M6 4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6H1a1 1 0 1 1 0-2h5zM4 6v12h12V6H4zm8-2V2H8v2h4zM8 8a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0V9a1 1 0 0 1 1-1z"></path></svg>
+                </button>
+                <div class="pt-4 pb-8 pl-4 pr-6">
+                    <div class="flex">
+                        <img src="https://secure.gravatar.com/avatar/901237802e51d4586aea82cfb5e447c9?size=512" class="rounded-full w-12 h-12 mr-3">
+                        <div>
+                            <h3 class="text-xl" >{{ getField('creator')? getField('creator').value.name : '' }} <span class="text-xs text-light text-info text-50">. {{ getField('time_ago')? getField('time_ago').value : '' }}</span></h3>
+                            <p class="mt-2">{{ getField('note')? getField('note').value : '' }}</p>
+                        </div>
+                    </div>
                 </div>
+                <hr>
             </div>
-            <!--<div v-html="getField('creator')? getField('creator').value.name : ''"></div>-->
-            <!--<component-->
-            <!--:is="currentMode"-->
-            <!--:class="`text-${note.textAlign}`"-->
-            <!--:resource-name="resourceName"-->
-            <!--:via-resource="viaResource"-->
-            <!--:via-resource-id="viaResourceId"-->
-            <!--:field="note"-->
-            <!--/>-->
-            <p class="text-sm text-right text-info my-2" v-html="getField('created_at')? getField('created_at').value : ''"></p>
-        </td>
-        <!--<td v-if="note && updateMode">-->
-            <!--<component-->
-                <!--is="note-text"-->
-                <!--:class="`text-${note.textAlign}`"-->
-                <!--:resource-name="resourceName"-->
-                <!--:via-resource="viaResource"-->
-                <!--:via-resource-id="viaResourceId"-->
-                <!--:field="note"-->
-            <!--/>-->
-        <!--</td>-->
-
-        <td class="td-fit text-right pr-6">
-
-
-            <!--<span v-if="resource.authorizedToUpdate">-->
-                <!--&lt;!&ndash; Edit Resource Link &ndash;&gt;-->
-                <!--<button-->
-                    <!--class="appearance-none cursor-pointer text-70 hover:text-primary mr-3"-->
-                    <!--@click="updateNote"-->
-                <!--&gt;-->
-                    <!--<icon type="edit" />-->
-                <!--</button>-->
-            <!--</span>-->
-
-            <!-- Delete Resource Link -->
-            <button
-                :data-testid="`${testId}-delete-button`"
-                :dusk="`${resource['id'].value}-delete-button`"
-                class="appearance-none cursor-pointer text-70 hover:text-primary mr-3"
-                v-if="resource.authorizedToDelete && (! resource.softDeleted || viaManyToMany)"
-                @click.prevent="openDeleteModal"
-                :title="__(viaManyToMany ? 'Detach' : 'Delete')"
-            >
-                <icon />
-            </button>
-
             <portal to="modals">
                 <transition name="fade">
                     <delete-resource-modal
-                        v-if="deleteModalOpen"
-                        @confirm="confirmDelete"
-                        @close="closeDeleteModal"
-                        :mode="viaManyToMany ? 'detach' : 'delete'"
+                            v-if="deleteModalOpen"
+                            @confirm="confirmDelete"
+                            @close="closeDeleteModal"
+                            :mode="viaManyToMany ? 'detach' : 'delete'"
                     >
                         <div slot-scope="{ uppercaseMode, mode }" class="p-8">
                             <heading :level="2" class="mb-6">{{ __(uppercaseMode+' Resource') }}</heading>
