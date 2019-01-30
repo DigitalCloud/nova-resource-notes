@@ -10784,6 +10784,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -12063,13 +12065,20 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "pt-4 pb-8 pl-4 pr-6" }, [
             _c("div", { staticClass: "flex" }, [
-              _c("img", {
-                staticClass: "rounded-full w-12 h-12 mr-3",
-                attrs: {
-                  src:
-                    "https://secure.gravatar.com/avatar/901237802e51d4586aea82cfb5e447c9?size=512"
-                }
-              }),
+              _vm.getField("creator") && _vm.getField("creator").value.avatar
+                ? _c("img", {
+                    staticClass: "rounded-full w-12 h-12 mr-3",
+                    attrs: {
+                      src: "/storage/" + _vm.getField("creator").value.avatar
+                    }
+                  })
+                : _c("img", {
+                    staticClass: "rounded-full w-12 h-12 mr-3",
+                    attrs: {
+                      src:
+                        "https://secure.gravatar.com/avatar/901237802e51d4586aea82cfb5e447c9?size=512"
+                    }
+                  }),
               _vm._v(" "),
               _c("div", [
                 _c("h3", { staticClass: "text-xl" }, [

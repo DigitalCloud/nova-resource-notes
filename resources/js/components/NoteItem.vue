@@ -16,7 +16,9 @@
                 </button>
                 <div class="pt-4 pb-8 pl-4 pr-6">
                     <div class="flex">
-                        <img src="https://secure.gravatar.com/avatar/901237802e51d4586aea82cfb5e447c9?size=512" class="rounded-full w-12 h-12 mr-3">
+                        <img v-if="getField('creator') && getField('creator').value.avatar" :src="`/storage/${ getField('creator').value.avatar }`" class="rounded-full w-12 h-12 mr-3">
+                        <img v-else src="https://secure.gravatar.com/avatar/901237802e51d4586aea82cfb5e447c9?size=512" class="rounded-full w-12 h-12 mr-3">
+
                         <div>
                             <h3 class="text-xl" >{{ getField('creator')? getField('creator').value.name : '' }} <span class="text-xs text-light text-info text-50">. {{ getField('time_ago')? getField('time_ago').value : '' }}</span></h3>
                             <p class="mt-2">{{ getField('note')? getField('note').value : '' }}</p>
