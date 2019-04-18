@@ -12631,12 +12631,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mixins: [__WEBPACK_IMPORTED_MODULE_1_laravel_nova__["Deletable"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["Filterable"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["HasCards"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["Paginatable"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["PerPageable"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["InteractsWithResourceInformation"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["InteractsWithQueryString"]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_1_laravel_nova__["Deletable"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["HasCards"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["Paginatable"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["PerPageable"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["InteractsWithResourceInformation"], __WEBPACK_IMPORTED_MODULE_1_laravel_nova__["InteractsWithQueryString"]],
 
     props: {
         field: {
@@ -12715,17 +12720,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             this.initializeOrderingFromQueryString();
 
                             _context.next = 7;
-                            return this.initializeFilters();
+                            return this.getResources();
 
                         case 7:
                             _context.next = 9;
-                            return this.getResources();
-
-                        case 9:
-                            _context.next = 11;
                             return this.getAuthorizationToRelate();
 
-                        case 11:
+                        case 9:
 
                             this.getLenses();
                             this.getActions();
@@ -12733,7 +12734,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             this.initialLoading = false;
 
                             this.$watch(function () {
-                                return _this.resourceName + _this.encodedFilters + _this.currentSearch + _this.currentPage + _this.currentPerPage + _this.currentOrderBy + _this.currentOrderByDirection + _this.currentTrashed;
+                                return _this.resourceName + _this.currentSearch + _this.currentPage + _this.currentPerPage + _this.currentOrderBy + _this.currentOrderByDirection + _this.currentTrashed;
                             }, function () {
                                 _this.getResources();
 
@@ -12754,7 +12755,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 }, 15 * 1000);
                             }
 
-                        case 16:
+                        case 14:
                         case 'end':
                             return _context.stop();
                     }
@@ -12978,9 +12979,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.actions = [];
             this.pivotActions = null;
             return Nova.request().get('/nova-api/' + this.resourceName + '/actions' + '?viaResource=' + this.viaResource + '&viaResourceId=' + this.viaResourceId + '&viaRelationship=' + this.viaRelationship).then(function (response) {
-                _this6.actions = _.filter(response.data.actions, function (action) {
-                    return !action.onlyOnDetail;
-                });
                 _this6.pivotActions = response.data.pivotActions;
             });
         },
@@ -13091,10 +13089,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         /**
          * Determine if the resource has any filters
          */
-        hasFilters: function hasFilters() {
-            return this.$store.getters[this.resourceName + '/hasFilters'];
-        },
-
 
         /**
          * Determine if the resource should show any cards
@@ -13167,7 +13161,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         resourceRequestQueryString: function resourceRequestQueryString() {
             return {
                 search: this.currentSearch,
-                filters: this.encodedFilters,
                 orderBy: this.currentOrderBy,
                 orderByDirection: this.currentOrderByDirection,
                 perPage: this.currentPerPage,
@@ -13439,22 +13432,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             var label = this.resources.length > 1 ? this.__('resources') : this.__('resource');
 
             return this.resources.length && this.resources.length + '/' + this.allMatchingResourceCount + ' ' + label;
-        },
-
-
-        /**
-         * Return the currently encoded filter string from the store
-         */
-        encodedFilters: function encodedFilters() {
-            return this.$store.getters[this.resourceName + '/currentEncodedFilters'];
-        },
-
-
-        /**
-         * Return the initial encoded filters from the query string
-         */
-        initialEncodedFilters: function initialEncodedFilters() {
-            return this.$route.query[this.filterParameter] || '';
         }
     }
 });
@@ -13515,40 +13492,9 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("div", { staticClass: "m-8" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.note,
-                      expression: "note"
-                    }
-                  ],
-                  staticClass:
-                    "w-full form-control form-input form-input-bordered bg-40 border-40 py-3 h-auto",
-                  attrs: {
-                    placeholder: "Type a note, and press enter.",
-                    rows: "4"
-                  },
-                  domProps: { value: _vm.note },
-                  on: {
-                    keydown: function($event) {
-                      if (
-                        !("button" in $event) &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.addNote($event)
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.note = $event.target.value
-                    }
-                  }
-                })
+                _vm._v(
+                  '\n                <<<<<<< HEAD\n                @keydown.enter="addNote"\n                =======\n                @keydown.stop="handleKeydown"\n                @keydown.enter.prevent="addNote"\n                >>>>>>> 223fa67ce0a38abc6bb473fb0afd5597bc924546\n                rows="4"\n                />\n\n            '
+                )
               ])
             ],
             1
