@@ -12633,9 +12633,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
 
 
 
@@ -13492,9 +13489,68 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("div", { staticClass: "m-8" }, [
-                _vm._v(
-                  '\n                <<<<<<< HEAD\n                @keydown.enter="addNote"\n                =======\n                @keydown.stop="handleKeydown"\n                @keydown.enter.prevent="addNote"\n                >>>>>>> 223fa67ce0a38abc6bb473fb0afd5597bc924546\n                rows="4"\n                />\n\n            '
-                )
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.note,
+                      expression: "note"
+                    }
+                  ],
+                  staticClass:
+                    "w-full form-control form-input form-input-bordered bg-40 border-40 py-3 h-auto",
+                  attrs: {
+                    placeholder: "Type a note, and press enter.",
+                    rows: "4"
+                  },
+                  domProps: { value: _vm.note },
+                  on: {
+                    keydown: [
+                      function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.addNote($event)
+                      },
+                      function($event) {
+                        $event.stopPropagation()
+                        return _vm.handleKeydown($event)
+                      },
+                      function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        $event.preventDefault()
+                        return _vm.addNote($event)
+                      }
+                    ],
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.note = $event.target.value
+                    }
+                  }
+                })
               ])
             ],
             1
