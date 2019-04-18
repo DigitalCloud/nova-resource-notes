@@ -21,7 +21,7 @@
 
                         <div>
                             <h3 class="text-xl" >{{ getField('creator')? getField('creator').value.name : '' }} <span class="text-xs text-light text-info text-50">. {{ getField('time_ago')? getField('time_ago').value : '' }}</span></h3>
-                            <p class="mt-2">{{ getField('note')? getField('note').value : '' }}</p>
+                            <pre class="mt-2">{{ getField('note')? getField('note').value : '' }}</pre>
                         </div>
                     </div>
                 </div>

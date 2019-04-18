@@ -49,7 +49,7 @@
                         placeholder="Type a note, and press enter."
                         class="w-full form-control form-input form-input-bordered bg-40 border-40 py-3 h-auto"
                         v-model="note"
-                        @keydown.enter.prevent="addNote"
+                        @keydown.enter="addNote"
                         rows="4"
                     />
 
@@ -224,6 +224,10 @@
         methods: {
 
             async addNote(event) {
+                if (event.shiftKey) {
+                    return true;
+                }
+                event.preventDefault()
                 try {
                     const response = await this.addNoteRequest()
                     this.clearNote()
