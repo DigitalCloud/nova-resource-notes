@@ -2,20 +2,20 @@
     <loading-view :loading="initialLoading" :dusk="resourceName + '-index-component'">
         <heading v-if="resourceResponse" class="mb-3">{{ headingTitle }}</heading>
         <!--<div class="flex">-->
-        <!--<div class="w-full flex items-center mb-6">-->
-        <!--&lt;!&ndash; Create / Attach Button &ndash;&gt;-->
-        <!--<create-resource-button-->
-        <!--:singular-name="singularName"-->
-        <!--:resource-name="resourceName"-->
-        <!--:via-resource="viaResource"-->
-        <!--:via-resource-id="viaResourceId"-->
-        <!--:via-relationship="viaRelationship"-->
-        <!--:relationship-type="relationshipType"-->
-        <!--:authorized-to-create="authorizedToCreate && !resourceIsFull"-->
-        <!--:authorized-to-relate="authorizedToRelate"-->
-        <!--class="flex-no-shrink ml-auto"-->
-        <!--/>-->
-        <!--</div>-->
+            <!--<div class="w-full flex items-center mb-6">-->
+                <!--&lt;!&ndash; Create / Attach Button &ndash;&gt;-->
+                <!--<create-resource-button-->
+                    <!--:singular-name="singularName"-->
+                    <!--:resource-name="resourceName"-->
+                    <!--:via-resource="viaResource"-->
+                    <!--:via-resource-id="viaResourceId"-->
+                    <!--:via-relationship="viaRelationship"-->
+                    <!--:relationship-type="relationshipType"-->
+                    <!--:authorized-to-create="authorizedToCreate && !resourceIsFull"-->
+                    <!--:authorized-to-relate="authorizedToRelate"-->
+                    <!--class="flex-no-shrink ml-auto"-->
+                <!--/>-->
+            <!--</div>-->
         <!--</div>-->
 
         <loading-card :loading="loading">
@@ -49,10 +49,8 @@
                         placeholder="Type a note, and press enter."
                         class="w-full form-control form-input form-input-bordered bg-40 border-40 py-3 h-auto"
                         v-model="note"
-                    @keydown.enter="addNote"
-                    @keydown.stop="handleKeydown"
-                    @keydown.enter.prevent="addNote"
-                    rows="4"
+                        @keydown.enter="addNote"
+                        rows="4"
                     />
 
                 </div>
@@ -80,6 +78,7 @@
     import {
         Errors,
         Deletable,
+        Filterable,
         HasCards,
         Minimum,
         Paginatable,
@@ -91,6 +90,7 @@
     export default {
         mixins: [
             Deletable,
+            Filterable,
             HasCards,
             Paginatable,
             PerPageable,
@@ -166,6 +166,7 @@
             this.initializeTrashedFromQueryString()
             this.initializeOrderingFromQueryString()
 
+            await this.initializeFilters()
             await this.getResources()
             await this.getAuthorizationToRelate()
 
@@ -178,6 +179,7 @@
                 () => {
                     return (
                         this.resourceName +
+                        this.encodedFilters +
                         this.currentSearch +
                         this.currentPage +
                         this.currentPerPage +
@@ -409,6 +411,9 @@
                         this.viaRelationship
                     )
                     .then(response => {
+                        this.actions = _.filter(response.data.actions, action => {
+                            return !action.onlyOnDetail
+                        })
                         this.pivotActions = response.data.pivotActions
                     })
             },
@@ -508,6 +513,9 @@
             /**
              * Determine if the resource has any filters
              */
+            hasFilters() {
+                return this.$store.getters[`${this.resourceName}/hasFilters`]
+            },
 
             /**
              * Determine if the resource should show any cards
@@ -572,6 +580,7 @@
             resourceRequestQueryString() {
                 return {
                     search: this.currentSearch,
+                    filters: this.encodedFilters,
                     orderBy: this.currentOrderBy,
                     orderByDirection: this.currentOrderByDirection,
                     perPage: this.currentPerPage,
@@ -832,6 +841,20 @@
                     this.resources.length &&
                     `${this.resources.length}/${this.allMatchingResourceCount} ${label}`
                 )
+            },
+
+            /**
+             * Return the currently encoded filter string from the store
+             */
+            encodedFilters() {
+                return this.$store.getters[`${this.resourceName}/currentEncodedFilters`]
+            },
+
+            /**
+             * Return the initial encoded filters from the query string
+             */
+            initialEncodedFilters() {
+                return this.$route.query[this.filterParameter] || ''
             },
         },
     }
