@@ -49,12 +49,9 @@
                         placeholder="Type a note, and press enter."
                         class="w-full form-control form-input form-input-bordered bg-40 border-40 py-3 h-auto"
                         v-model="note"
-                    <<<<<<< HEAD
                     @keydown.enter="addNote"
-                    =======
                     @keydown.stop="handleKeydown"
                     @keydown.enter.prevent="addNote"
-                    >>>>>>> 223fa67ce0a38abc6bb473fb0afd5597bc924546
                     rows="4"
                     />
 
