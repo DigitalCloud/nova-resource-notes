@@ -46,7 +46,7 @@
 
                 <div class="m-8">
                     <textarea
-                        placeholder="Type a note, and press enter."
+                        placeholder="{{ __('Type a note, and press enter') }}."
                         class="w-full form-control form-input form-input-bordered bg-40 border-40 py-3 h-auto"
                         v-model="note"
                         @keydown.enter="addNote"
