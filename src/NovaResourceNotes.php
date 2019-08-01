@@ -29,16 +29,6 @@ class NovaResourceNotes extends Tool
     }
 
     /**
-     * Build the view that renders the navigation links for the tool.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function renderNavigation()
-    {
-        return view('nova-eloquent-notes::navigation');
-    }
-
-    /**
      * @param  string  $noteResource
      * @return mixed
      */
