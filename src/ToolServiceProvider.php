@@ -22,10 +22,6 @@ class ToolServiceProvider extends ServiceProvider
 
         $this->app->booted(function () {
             $this->routes();
-
-            Nova::resources([
-                Note::class
-            ]);
         });
 
         Nova::serving(function (ServingNova $event) {
