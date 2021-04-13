@@ -6,8 +6,9 @@ use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\ResourceRelationshipGuesser;
 use DigitalCloud\NovaResourceNotes\Resources\Note;
+use Laravel\Nova\Contracts\RelatableField;
 
-class Notes extends Field {
+class Notes extends Field implements RelatableField {
 
     public $onlyOnDetail = true;
     public $showOnUpdate = false;
